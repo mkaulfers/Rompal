@@ -15,6 +15,10 @@
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).example-document</string>
 		</dict>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AnalogueOS-Regular.ttf</string>
+	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>

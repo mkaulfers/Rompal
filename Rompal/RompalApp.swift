@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct RompalApp: App {
     var body: some Scene {
-        DocumentGroup(newDocument: RompalDocument()) { file in
-            ContentView(document: file.$document)
+        WindowGroup {
+            ContentView()
         }
     }
 }
