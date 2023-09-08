@@ -7,8 +7,14 @@
 
 import Foundation
 
-enum Platform: CaseIterable, Equatable {
-    case gb, gba, gbc
+enum Platform: String, CaseIterable, Equatable {
+    case gb = "GB"
+    case gba = "GBA"
+    case gbc = "GBC"
+    
+    var dirName: String {
+        return self.rawValue
+    }
     
     var dbRef: String {
         switch self {

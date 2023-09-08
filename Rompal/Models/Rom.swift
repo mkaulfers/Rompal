@@ -17,6 +17,6 @@ struct Rom {
     var status: String
     
     var verified: Bool {
-        return status == "verified"
+        return status.lowercased() == "verified"
     }
 }
