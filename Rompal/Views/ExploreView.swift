@@ -14,7 +14,7 @@ struct SupportedLanguageComparator: SortComparator {
     func compare(_ lhs: Game, _ rhs: Game) -> ComparisonResult {
         let lhsSupports = lhs.supportedLanguages.contains(language)
         let rhsSupports = rhs.supportedLanguages.contains(language)
-
+        
         let baseComparison: ComparisonResult
         if lhsSupports && rhsSupports {
             baseComparison = lhs.name < rhs.name ? .orderedAscending : .orderedDescending
@@ -31,6 +31,19 @@ struct SupportedLanguageComparator: SortComparator {
             return baseComparison
         case .reverse:
             return baseComparison.reversed
+        }
+    }
+}
+
+struct BoolComparator: SortComparator {
+    var order: SortOrder = .reverse
+    func compare(_ lhs: Bool, _ rhs: Bool) -> ComparisonResult {
+        switch (lhs, rhs) {
+        case (true, false):
+            return order == .forward ? .orderedDescending : .orderedAscending
+        case (false, true):
+            return order == .forward ? .orderedAscending : .orderedDescending
+        default: return .orderedSame
         }
     }
 }
@@ -64,10 +77,32 @@ struct ExploreView: View {
               sortOrder: $sortString,
               columns: {
             TableColumn("Name", value: \.name) { game in
-                Text(getName(from: game))
+                Text(formattedName(from: game))
                     .padding(.vertical, 4)
             }
             .width(min: 500)
+            
+            TableColumn("Id", value: \.gameId) { game in
+                Text("#\(game.gameId)")
+            }
+            .width(min: 100, max: 100)
+            
+            TableColumn("Clone Id", value: \.cloneofid) { game in
+                if game.cloneofid.isEmpty {
+                    Text("")
+                } else {
+                    Text("#\(game.cloneofid)")
+                }
+            }
+            .width(min: 100, max: 100)
+            
+            TableColumn("Size", value: \.rom.size) { game in
+                Text("\(game.rom.size) B")
+            }
+            
+            TableColumn("md5", value: \.rom.md5) { game in
+                Text(game.rom.md5)
+            }
             
             Group {
                 TableColumn("En", value: \.self, comparator: SupportedLanguageComparator(language: "En")) { game in
@@ -120,7 +155,7 @@ struct ExploreView: View {
                 }
                 .width(max: 35)
             }
-
+            
             Group {
                 TableColumn("Fi", value: \.self, comparator: SupportedLanguageComparator(language: "Fi")) { game in
                     supportsLanguageIcon("Fi", game: game)
@@ -143,30 +178,8 @@ struct ExploreView: View {
                 .width(max: 35)
             }
             
-            TableColumn("Id", value: \.gameId) { game in
-                Text("#\(game.gameId)")
-            }
-            .width(min: 100, max: 100)
-            
-            TableColumn("Clone Id", value: \.cloneofid) { game in
-                if game.cloneofid.isEmpty {
-                    Text("")
-                } else {
-                    Text("#\(game.cloneofid)")
-                }
-            }
-            .width(min: 100, max: 100)
-            
-            TableColumn("Size", value: \.rom.size) { game in
-                Text("\(game.rom.size) B")
-            }
-            
-            TableColumn("md5", value: \.rom.md5) { game in
-                Text(game.rom.md5)
-            }
-            
-            TableColumn("Verified", value: \.rom.status) { game in
-                Text(game.rom.verified ? "Yes" : "No")
+            TableColumn("Verified", value: \.rom.verified, comparator: BoolComparator()) { game in
+                verifiedIcon(game.rom.verified)
             }
             .width(min: 100, max: 100)
             
@@ -212,16 +225,23 @@ struct ExploreView: View {
         }
     }
     
+    private func verifiedIcon(_ verified: Bool) -> some View {
+        if verified {
+            return Image(systemName: "checkmark.seal.fill").foregroundColor(.mint)
+        } else {
+            return Image(systemName: "seal").foregroundColor(.white)
+        }
+        
+    }
+    
     /// Gets the `Name` from the game. It gets all characters in the game name
     /// before the first instance of `(`
-    private func getName(from game: Game) -> String {
+    private func formattedName(from game: Game) -> String {
         if let name = game.name.split(separator: "(").first {
             return String(name)
         }
         return game.name
     }
-    
-
     
     private func getFilteredGames() -> [Game] {
         guard let allGames = allGames[selectedPlatform] else { return []}
