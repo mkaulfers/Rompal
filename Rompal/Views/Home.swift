@@ -14,7 +14,7 @@ struct Home: View {
     var body: some View {
         NavigationSplitView(sidebar: {
             sideMenu
-                .frame(minWidth: 150)
+                .frame(minWidth: 250)
         }, detail: {
             VStack(spacing: 8) {
                 Image("rompal-logo")
@@ -42,10 +42,16 @@ struct Home: View {
         VStack(spacing: 24) {
             homeButton
             ScrollView {
-                section(for: MenuOption.manageSection, with: "Manage")
+                section(for: MenuOption.analogueSection, with: "Analogue")
             }
-            Spacer()
-            section(for: MenuOption.settingsSection, with: "Tools")
+            
+            ScrollView {
+                section(for: MenuOption.librarySection, with: "Library")
+            }
+
+            ScrollView {
+                section(for: MenuOption.settingsSection, with: "Tools")
+            }
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical)
@@ -59,6 +65,8 @@ struct Home: View {
         }}, label: {
             HStack {
                 Text("Home")
+                    .padding(.bottom, 2)
+                    .border(width: 1, edges: [.bottom], color: .white)
                 
                 Spacer()
             }

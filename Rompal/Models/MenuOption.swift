@@ -8,10 +8,13 @@
 import Foundation
 
 enum MenuOption: String, CaseIterable, Identifiable {
+    case update = "Update"
+    case addCores = "Add Cores"
+    case removeCores = "Remove Cores"
+    case addRoms = "Add Roms"
+    case removeRoms = "Remove Roms"
+    
     case favorites = "Favorites"
-    case sync = "Sync"
-    case add = "Add"
-    case remove = "Remove"
     
     case explore = "Explore"
     case importData = "Import"
@@ -28,10 +31,15 @@ enum MenuOption: String, CaseIterable, Identifiable {
     
     var iconSystemName: String {
         switch self {
+        case .update: return "arrow.up"
+        case .addCores: return "plus"
+        case .removeCores: return "minus"
+        case .addRoms: return "externaldrive.badge.plus"
+        case .removeRoms: return "externaldrive.badge.minus"
         case .favorites: return "heart"
-        case .sync: return "arrow.triangle.2.circlepath"
-        case .add: return "folder.badge.plus"
-        case .remove: return "folder.badge.minus"
+//        case .sync: return "arrow.triangle.2.circlepath"
+//        case .add: return "folder.badge.plus"
+//        case .remove: return "folder.badge.minus"
         case .explore: return "server.rack"
         case .importData: return "arrow.down.doc"
         case .exportData: return "arrow.up.doc"
@@ -39,8 +47,12 @@ enum MenuOption: String, CaseIterable, Identifiable {
         }
     }
     
-    static var manageSection: [MenuOption] {
-        return [.favorites, .sync, .add, .remove]
+    static var analogueSection: [MenuOption] {
+        return [.update, .addCores, .removeCores, .addRoms, .removeRoms]
+    }
+    
+    static var librarySection: [MenuOption] {
+        return [.favorites]
     }
     
     static var settingsSection: [MenuOption] {

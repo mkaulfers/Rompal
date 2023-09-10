@@ -5,21 +5,8 @@
 //  Created by Matthew Kaulfers on 9/7/23.
 //
 
-import Foundation
-
-struct DirectoryStructure {
-    var separatedByPlatform: Bool
-    var separatedByRegion: Bool
-    var separatedAlphabetically: Bool
-    
-    init(_ separatedByPlatform: Bool = true, 
-         _ separatedByRegion: Bool = true,
-         _ separatedAlphabetically: Bool = true) {
-        self.separatedByPlatform = separatedByPlatform
-        self.separatedByRegion = separatedByRegion
-        self.separatedAlphabetically = separatedAlphabetically
-    }
-}
+import SwiftUI
+import ZIPFoundation
 
 class FileService {
     static let shared = FileService()
@@ -32,24 +19,41 @@ class FileService {
         userDefaults = UserDefaults.standard
     }
     
-    func importFiles(at urls: [URL]) {
-        for url in urls {
-            importFile(at: url)
+    func downloadFrom(_ url: URL, to directory: URL) {
+        let task = URLSession.shared.downloadTask(with: url) { localURL, response, error in
+            if let localURL {
+                self.moveFrom(localURL, to: directory)
+            }
+            
+            if let error {
+                print("Failed to download file with error: \(error)")
+            }
         }
-    }
-    
-    func importFile(at url: URL) {
-        let directoryStructure = DirectoryStructure()
-    }
-    
-    func exportFiles(at urls: [URL]) {
-        for url in urls {
-            importFile(at: url)
-        }
-    }
-    
-    func exportFile(to url: URL) {
         
+        task.resume()
+    }
+    
+    func moveFrom(_ url: URL, to directory: URL) {
+        do {
+            try FileManager().moveItem(at: url, to: directory)
+        } catch {
+            print("Failed to move file with error: \(error)")
+        }
+    }
+    
+    func unzip(file at: URL) {
+        do {
+          try FileManager().unzipItem(at: at, to: at.deletingLastPathComponent())
+        } catch {
+            print("Extraction of ZIP archive failed with error:\(error)")
+        }
+    }
+    
+    func zip(file at: URL) {
+        do {
+            try FileManager().zipItem(at: at, to: at.deletingLastPathComponent())
+        } catch {
+            print("Compression of ZIP archive failed with error:\(error)")
+        }
     }
 }
-

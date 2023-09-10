@@ -188,6 +188,7 @@ struct ExploreView: View {
                 TableRow(game)
             }
         })
+        .tableStyle(.bordered(alternatesRowBackgrounds: false))
         .font(.p1)
         .scrollContentBackground(.hidden)
         .background(Color.black)  // Assuming you wanted a light gray background

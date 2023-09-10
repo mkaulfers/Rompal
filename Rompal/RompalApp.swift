@@ -12,6 +12,8 @@ struct RompalApp: App {
     var body: some Scene {
         WindowGroup {
             Home()
+                .frame(minWidth: 1240, minHeight: 720)
         }
+        .windowResizability(.contentSize)
     }
 }
