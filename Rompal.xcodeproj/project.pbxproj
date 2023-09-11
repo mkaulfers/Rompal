@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6963A1912AAC091A008F6319 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 6963A1902AAC091A008F6319 /* ZIPFoundation */; };
 		6963A1932AAC0ACF008F6319 /* DirectoryConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6963A1922AAC0ACF008F6319 /* DirectoryConfiguration.swift */; };
+		6963A1972AAE9A22008F6319 /* SelectDirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6963A1962AAE9A22008F6319 /* SelectDirectoryView.swift */; };
+		6963A1992AAEA7BF008F6319 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6963A1982AAEA7BF008F6319 /* SettingsView.swift */; };
 		6968D3D22AA7D293005114FC /* RompalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968D3D12AA7D293005114FC /* RompalApp.swift */; };
 		6968D3D62AA7D293005114FC /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968D3D52AA7D293005114FC /* Home.swift */; };
 		6968D3D82AA7D294005114FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6968D3D72AA7D294005114FC /* Assets.xcassets */; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		6963A1922AAC0ACF008F6319 /* DirectoryConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryConfiguration.swift; sourceTree = "<group>"; };
+		6963A1962AAE9A22008F6319 /* SelectDirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDirectoryView.swift; sourceTree = "<group>"; };
+		6963A1982AAEA7BF008F6319 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6968D3CE2AA7D293005114FC /* Rompal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rompal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6968D3D12AA7D293005114FC /* RompalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RompalApp.swift; sourceTree = "<group>"; };
 		6968D3D52AA7D293005114FC /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 				6968D3D52AA7D293005114FC /* Home.swift */,
 				69EF96F92AA9178F00BDCD2C /* ImportView.swift */,
 				69EF97152AA9526C00BDCD2C /* ExploreView.swift */,
+				6963A1982AAEA7BF008F6319 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				69EF96FF2AA921D000BDCD2C /* Shapes */,
+				6963A1962AAE9A22008F6319 /* SelectDirectoryView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -290,9 +296,11 @@
 				69EF96FE2AA9190B00BDCD2C /* AnalogueButtonStyle.swift in Sources */,
 				69EF97142AA949B700BDCD2C /* DBService.swift in Sources */,
 				6963A1932AAC0ACF008F6319 /* DirectoryConfiguration.swift in Sources */,
+				6963A1992AAEA7BF008F6319 /* SettingsView.swift in Sources */,
 				69EF97012AA921DA00BDCD2C /* EdgeBorder.swift in Sources */,
 				69EF97112AA9493400BDCD2C /* Rom.swift in Sources */,
 				69EF97162AA9526C00BDCD2C /* ExploreView.swift in Sources */,
+				6963A1972AAE9A22008F6319 /* SelectDirectoryView.swift in Sources */,
 				6991769A2AAA11740007069C /* FileService.swift in Sources */,
 				6968D3D62AA7D293005114FC /* Home.swift in Sources */,
 			);
@@ -441,7 +449,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sample.wireviewer.Rompal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rompal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -470,7 +478,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sample.wireviewer.Rompal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rompal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

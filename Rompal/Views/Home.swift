@@ -10,6 +10,10 @@ import SwiftUI
 struct Home: View {
     @Namespace var namespace: Namespace.ID
     @State private var selectedItem: MenuOption?
+    @State private var showsStoragePrompt: Bool
+    @State private var showsAnaloguePrompt: Bool
+    
+    private var fileService = FileService.shared
     
     var body: some View {
         NavigationSplitView(sidebar: {
@@ -36,6 +40,43 @@ struct Home: View {
         .onAppear {
             _ = DBService.shared
         }
+        .sheet(isPresented: $showsStoragePrompt, content: {
+            VStack(spacing: 16) {
+                
+                Text("Where would you like to store your ROMs?")
+                    .font(.h1)
+                Text("Don't worry, you can change this later in settings.")
+                    .font(.p2)
+                
+                SelectDirectoryView(buttonLabel: "Select Rom Folder", selectionType: .folders, selectedContent: { urls in
+                    if let url = urls.first {
+                        fileService.setDirectory(for: .storage, to: url)
+                        showsStoragePrompt = false
+                    }
+                })
+            }
+            .padding(150)
+            .background(Color.black)
+            .border(width: 5, edges: [.top, .bottom, .leading, .trailing], color: .white)
+        })
+        .sheet(isPresented: $showsAnaloguePrompt, content: {
+            VStack(spacing: 16) {
+                Text("Where is your Analogue root folder location?")
+                    .font(.h1)
+                Text("Don't worry, you can change this later in settings.")
+                    .font(.p2)
+                
+                SelectDirectoryView(buttonLabel: "Select Analogue Folder", selectionType: .folders, selectedContent: { urls in
+                    if let url = urls.first {
+                        fileService.setDirectory(for: .analogue, to: url)
+                        showsAnaloguePrompt = false
+                    }
+                })
+            }
+            .padding(150)
+            .background(Color.black)
+            .border(width: 5, edges: [.top, .bottom, .leading, .trailing], color: .white)
+        })
     }
     
     private var sideMenu: some View {
@@ -48,7 +89,7 @@ struct Home: View {
             ScrollView {
                 section(for: MenuOption.librarySection, with: "Library")
             }
-
+            
             ScrollView {
                 section(for: MenuOption.settingsSection, with: "Tools")
             }
@@ -144,8 +185,17 @@ struct Home: View {
         switch item {
         case .importData: return AnyView(ImportView())
         case .explore: return AnyView(ExploreView())
+        case .settings: return AnyView(SettingsView())
         default: return AnyView(Text(item.title).font(.p1))
         }
+    }
+    
+    init(selectedItem: MenuOption? = nil,
+         fileService: FileService = FileService.shared) {
+        self.selectedItem = selectedItem
+        self.fileService = fileService
+        _showsStoragePrompt = State(initialValue: fileService.storageDirectory == nil)
+        _showsAnaloguePrompt = State(initialValue: fileService.analogueDirectory == nil)
     }
 }
 

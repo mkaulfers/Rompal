@@ -20,8 +20,7 @@ struct ImportView: View {
     
     var filePicker: some View {
         HStack {
-            Button("Select Files")
-            {
+            Button("Select Files") {
                 let panel = NSOpenPanel()
                 panel.allowsMultipleSelection = true
                 panel.canChooseDirectories = true
